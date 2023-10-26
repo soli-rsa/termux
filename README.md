@@ -1,55 +1,23 @@
-# nvim-lua-plugin-template
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<!--
+  This is a tv banner graphic:
+    https://developer.android.com/design/tv/patterns.html#banner
+  - Size: 320 x 180 px, xhdpi resource in app
+  - Size: 1280 x 720 in google play.
+  - Text must be included in the image. If your app is available in more
+    than one language, you must provide versions of the banner image for each supported language.
+ -->
+<svg xmlns="http://www.w3.org/2000/svg"
+     version="1.1"
+     viewBox="0 0 1280 720">
 
-This repository is a template for Neovim plugins written in Lua.
+ <rect fill="#0" width="100%" height="100%" />
 
-The intention is that you use this template to create a new repository where you then adapt this readme and add your plugin code.
-The template includes the following:
+ <text id="shell_prompt"
+       x="200"
+       y="410"
+       style="fill: #ffffff; font-size: 210px; font-family: Menlo, Monospace;">
+   <tspan>Termux  ▌</tspan>
+ </text>
 
-- GitHub workflows to run linters and tests
-- Minimal test setup
-- EditorConfig
-- A .luacheckrc
-
-
-To get started writing a Lua plugin, I recommend reading the [nvim-lua-guide][nvim-lua-guide].
-
-## Scope
-
-Anything that the majority of plugin authors will want to have is in scope of
-this starter template. Anything that is controversial is out-of-scope.
-
-
-## Template License
-
-The template itself is licensed under the [MIT license](https://en.wikipedia.org/wiki/MIT_License).
-The template doesn't include a LICENSE file. You should add one after creating your repository.
-
----
-
-
-The remainder of the README is text that can be preserved in your plugin:
-
----
-
-
-## Development
-
-### Run tests
-
-
-Running tests requires [plenary.nvim][plenary] to be checked out in the parent directory of *this* repository.
-You can then run:
-
-```bash
-nvim --headless --noplugin -u tests/minimal.vim -c "PlenaryBustedDirectory tests/ {minimal_init = 'tests/minimal.vim'}"
-```
-
-Or if you want to run a single test file:
-
-```bash
-nvim --headless --noplugin -u tests/minimal.vim -c "PlenaryBustedDirectory tests/path_to_file.lua {minimal_init = 'tests/minimal.vim'}"
-```
-
-
-[nvim-lua-guide]: https://github.com/nanotee/nvim-lua-guide
-[plenary]: https://github.com/nvim-lua/plenary.nvim
+</svg>
