@@ -33,3 +33,4 @@ git config --global url."https://gitlab.com/".insteadOf "gl:"
 #
 git config --global url."https://github.com/termux/".insteadOf "termux:"
 #
+echo "DONE!"
