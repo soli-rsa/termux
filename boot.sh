@@ -28,7 +28,7 @@ curl -fsSL https://raw.githubusercontent.com/sigoden/argc/main/install.sh | sh -
 
 curl -fsSL "https://raw.githubusercontent.com/folke/tokyonight.nvim/main/extras/termux/tokyonight_night.properties" -o ~/.termux/colors.properties
 
-curl -o ~/.termux/font.ttf -fL https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts%2FJetBrainsMono%2FNoLigatures%2FRegular%2FJetBrainsMonoNLNerdFont-Thin.ttf
+curl -o ~/.termux/font.ttf -fL https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts%2FJetBrainsMono%2FNoLigatures%2FRegular%2FJetBrainsMonoNLNerdFont-Regular.ttf
 
 curl -fLO https://github.com/skim-rs/skim/releases/download/v0.20.5/skim-aarch64-unknown-linux-musl.tgz
 #
