@@ -76,7 +76,7 @@ curl -o ~/.termux/font.ttf -fL https://github.com/ryanoasis/nerd-fonts/raw/maste
 cat <<'EOF' > ~/.config/starship.toml
 add_newline = false
 
-add_newline = true
+# add_newline = true
 command_timeout = 200
 format = "[$directory$git_branch$git_status]($style)$character"
 
