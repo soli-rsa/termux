@@ -1,4 +1,15 @@
-#!/bin/sh
+#!/data/data/com.termux/files/usr/bin/bash
+# set -e
+
+clear
+echo " _____ ______________  ____   ___   __";
+echo "|_   _|  ___| ___ \\  \\/  | | | \\ \\ / /";
+echo "  | | | |__ | |_/ / .  . | | | |\\ V / ";
+echo "  | | |  __||    /| |\\/| | | | |/   \\ ";
+echo "  | | | |___| |\\ \\| |  | | |_| / /^\\ \\";
+echo "  \\_/ \\____/\\_| \\_\\_|  |_/\\___/\\/   \\/";
+echo "                                      ";
+echo "                                      ";
 termux-wake-lock && termux-setup-storage
 termux-change-repo && yes | pkg upgrade
 yes | pkg install --install-suggests \
@@ -25,6 +36,9 @@ yes | pkg install --install-suggests \
                   eza \
                   fish \
                   git \
+                  age \
+                  openssh \
+                  gnupg \
                   git-delta \
                   gh \
                   lazygit \
@@ -49,9 +63,47 @@ yes | pkg install --install-suggests \
                   zsh
 
 # starship
-mkdir --parents ~/.config ~/.cache ~/.local/bin
+mkdir --parents ~/.config ~/.cache ~/.local/{bin,share,state}
+
+curl -SsL https://github.com/basecamp/omarchy/archive/refs/tags/v3.1.3.tar.gz | tar -xz -C .local/share
+
+
+
 cat <<'EOF' > ~/.config/starship.toml
 add_newline = false
+
+add_newline = true
+command_timeout = 200
+format = "[$directory$git_branch$git_status]($style)$character"
+
+[character]
+error_symbol = "[✗](bold cyan)"
+success_symbol = "[❯](bold cyan)"
+
+[directory]
+truncation_length = 2
+truncation_symbol = "…/"
+repo_root_style = "bold cyan"
+repo_root_format = "[$repo_root]($repo_root_style)[$path]($style)[$read_only]($read_only_style) "
+
+[git_branch]
+format = "[$branch]($style) "
+style = "italic cyan"
+
+[git_status]
+format     = '[$all_status]($style)'
+style      = "cyan"
+ahead      = "⇡${count} "
+diverged   = "⇕⇡${ahead_count}⇣${behind_count} "
+behind     = "⇣${count} "
+conflicted = " "
+up_to_date = " "
+untracked  = "? "
+modified   = " "
+stashed    = ""
+staged     = ""
+renamed    = ""
+deleted    = ""
 
 [shell]
 disabled = false
