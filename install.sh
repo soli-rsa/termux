@@ -66,8 +66,12 @@ yes | pkg install --install-suggests \
 mkdir --parents ~/.config ~/.cache ~/.local/{bin,share,state}
 
 curl -SsL https://github.com/basecamp/omarchy/archive/refs/tags/v3.1.3.tar.gz | tar -xz -C .local/share
+curl -fsSL https://raw.githubusercontent.com/sigoden/argc/main/install.sh | sh -s -- --to $PREFIX/bin
 
+curl -fsSL "https://raw.githubusercontent.com/folke/tokyonight.nvim/main/extras/termux/tokyonight_night.properties" -o ~/.termux/colors.properties
+curl -o ~/.termux/font.ttf -fL https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts%2FJetBrainsMono%2FNoLigatures%2FRegular%2FJetBrainsMonoNLNerdFont-Regular.ttf
 
+# curl -fLO https://github.com/skim-rs/skim/releases/download/v0.20.5/skim-aarch64-unknown-linux-musl.tgz
 
 cat <<'EOF' > ~/.config/starship.toml
 add_newline = false
@@ -136,7 +140,54 @@ export STARSHIP_SHELL=bash
 
 eval "$(starship init bash)"
 
+source <(argc --argc-completions bash)
 source <(carapace _carapace bash)
+EOF
+
+# inputrc
+cat <<'EOF' > ~/.inputrc
+set meta-flag on
+set input-meta on
+set output-meta on
+set convert-meta off
+set completion-ignore-case on
+set completion-prefix-display-length 2
+set show-all-if-ambiguous on
+set show-all-if-unmodified on
+
+# Arrow keys match what you've typed so far against your command history
+"\e[A": history-search-backward
+"\e[B": history-search-forward
+"\e[C": forward-char
+"\e[D": backward-char
+
+# Immediately add a trailing slash when autocompleting symlinks to directories
+set mark-symlinked-directories on
+
+# Do not autocomplete hidden files unless the pattern explicitly begins with a dot
+set match-hidden-files off
+
+# Show all autocomplete results at once
+set page-completions off
+
+# If there are more than 200 possible completions for a word, ask to show them all
+set completion-query-items 200
+
+# Show extra file information when completing, like `ls -F` does
+set visible-stats on
+
+$if Bash
+  # Be more intelligent when autocompleting by also looking at the text after
+  # the cursor. For example, when the current line is "cd ~/src/mozil", and
+  # the cursor is on the "z", pressing Tab will not autocomplete it to "cd
+  # ~/src/mozillail", but to "cd ~/src/mozilla". (This is supported by the
+  # Readline used by Bash 4.)
+  set skip-completed-text on
+
+  # Coloring for Bash 4 tab completions.
+  set colored-stats on
+$endif
+
 EOF
 
 # elvish
@@ -368,3 +419,16 @@ cat <<'EOF' > ~/.config/carapace/specs/ls.yaml
 name: ls
 run: "[eza]"
 EOF
+
+
+# lazyvim
+# required
+mv ~/.config/nvim{,.bak}
+# optional but recommended
+mv ~/.local/share/nvim{,.bak}
+mv ~/.local/state/nvim{,.bak}
+mv ~/.cache/nvim{,.bak}
+git clone https://github.com/LazyVim/starter ~/.config/nvim
+rm -rf ~/.config/nvim/.git
+
+echo 'TERMUX SETUP: COMPLETE!'
