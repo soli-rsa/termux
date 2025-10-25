@@ -3,6 +3,9 @@ termux-wake-lock && termux-setup-storage
 termux-change-repo && yes | pkg upgrade
 yes | pkg install --install-suggests \
                   build-essential \
+                  lux-cli \
+                  atuin \
+                  zoxide \
                   shellcheck \
                   shfmt \
                   esbuild \
@@ -14,6 +17,7 @@ yes | pkg install --install-suggests \
                   termux-api \
                   fzf \
                   neovim \
+                  python-pynvim \
                   termux-services \
                   bat \
                   carapace \
@@ -23,6 +27,9 @@ yes | pkg install --install-suggests \
                   git \
                   git-delta \
                   gh \
+                  lazygit \
+                  glow \
+                  gum \
                   golang \
                   gopls \
                   helix \
@@ -30,6 +37,9 @@ yes | pkg install --install-suggests \
                   jq \
                   python \
                   ripgrep \
+                  fd \
+                  sd \
+                  ollama \
                   starship \
                   tig \
                   vivid \
@@ -39,7 +49,7 @@ yes | pkg install --install-suggests \
                   zsh
 
 # starship
-mkdir --parents ~/.config
+mkdir --parents ~/.config ~/.cache ~/.local/bin
 cat <<'EOF' > ~/.config/starship.toml
 add_newline = false
 
@@ -49,10 +59,17 @@ EOF
 
 # .profile
 cat <<'EOF' > ~/.profile
+# Set XDG environment variables (export for current session; persist in .bashrc if needed).
+export XDG_CONFIG_HOME="$HOME/.config"
+export XDG_DATA_HOME="$HOME/.local/share"
+export XDG_CACHE_HOME="$HOME/.cache"
+export XDG_STATE_HOME="$HOME/.local/state"
+#
+export TERMINFO=/data/data/com.termux/files/usr/share/terminfo
 export EDITOR=hx
-export LS_COLORS="$(vivid generate tokyonight-)"
+export LS_COLORS="$(vivid generate tokyonight-night)"
 export PAGER=bat
-export PATH="/data/data/com.termux/files/home/.local/bin:/data/data/com.termux/files/home/go/bin:$PATH"
+export PATH="$HOME/.local/bin:$HOME/go/bin:$HOME/.cargo/bin:$HOME/.termux/bin:$PATH"
 
 export CARAPACE_MATCH=1
 export CARAPACE_BRIDGES='zsh,fish,bash'
@@ -280,23 +297,17 @@ EOF
 
 # .gitconfig
 mkdir -p ~/.config/git
-cat <<'EOF' > ~/.config/git/config
-[core]
-    pager = delta --syntax-theme Catppuccin-mocha
-
-[interactive]
-    diffFilter = delta --color-only --syntax-theme Catppuccin-mocha
-
-[delta]
-    navigate = true    # use n and N to move between diff sections
-    light = false      # set to true if you're in a terminal w/ a light background color (e.g. the default macOS terminal)
-
-[merge]
-    conflictstyle = diff3
-
-[diff]
-    colorMoved = default
-EOF
+touch ~/.config/git/config
+git config --global user.email "soli_rsa@outlook.com"
+git config --global user.name "soli-rsa"
+git config --global init.defaultBranch "main"
+git config --global url."https://github.com/".insteadOf "gh:"
+git config --global url."https://gitlab.com/".insteadOf "gl:"
+git config --global url."https://github.com/termux/".insteadOf "termux:"
+git config --global core.pager delta
+git config --global interactive.diffFilter 'delta --color-only'
+git config --global delta.navigate true
+git config --global merge.conflictStyle zdiff3
 
 # eza alias
 mkdir --parents ~/.config/carapace/specs
