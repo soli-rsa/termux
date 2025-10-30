@@ -1,8 +1,30 @@
-echo " _____ ______________  ____   ___   __";
-echo "|_   _|  ___| ___ \\  \\/  | | | \\ \\ / /";
-echo "  | | | |__ | |_/ / .  . | | | |\\ V / ";
-echo "  | | |  __||    /| |\\/| | | | |/   \\ ";
-echo "  | | | |___| |\\ \\| |  | | |_| / /^\\ \\";
-echo "  \\_/ \\____/\\_| \\_\\_|  |_/\\___/\\/   \\/";
-echo "                                      ";
-echo "                                      ";
+#!/bin/bash
+
+ascii_art='
+___________
+\__    ___/__________  _____  __ _____  ___
+  |    |_/ __ \_  __ \/     \|  |  \  \/  /
+  |    |\  ___/|  | \/  Y Y  \  |  />    <
+  |____| \___  >__|  |__|_|  /____//__/\_ \
+             \/            \/            \/
+'
+
+# Define the color gradient (shades of cyan and blue)
+colors=(
+    '\033[38;5;81m' # Cyan
+    '\033[38;5;75m' # Light Blue
+    '\033[38;5;69m' # Sky Blue
+    '\033[38;5;63m' # Dodger Blue
+    '\033[38;5;57m' # Deep Sky Blue
+    '\033[38;5;51m' # Cornflower Blue
+    '\033[38;5;45m' # Royal Blue
+)
+
+# Split the ASCII art into lines
+IFS=$'\n' read -rd '' -a lines <<<"$ascii_art"
+
+# Print each line with the corresponding color
+for i in "${!lines[@]}"; do
+    color_index=$((i % ${#colors[@]}))
+    echo -e "${colors[color_index]}${lines[i]}"
+done
