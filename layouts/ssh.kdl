@@ -1,0 +1,10 @@
+theme "tokyo-night-dark"
+layout {
+    pane borderless=true {
+      command "ssh" 
+      args "soli-rsa@10.0.0.106"
+    }
+    pane size=1 borderless=true {
+        plugin location="compact-bar"
+    }
+}
